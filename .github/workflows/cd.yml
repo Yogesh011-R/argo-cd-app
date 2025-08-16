@@ -29,18 +29,22 @@ jobs:
           push: true
           tags: ${{secrets.DOCKER_USERNAME}}/argo-cd-app:${{ github.sha }}
 
-      - name: Clone staging-ops repo, update image tags, and push tags
-        env:
-          PAT: ${{ secrets.PAT }}
-        run: |
-          echo ${{github}}
-          git clone https://github.com/Yogesh011-R/argo-cd-app.git
-          cd argo-deployment
+      - name: Checkout argo-cd-app
+        uses: actions/checkout@v4
+        with:
+          repository: Yogesh011-R/argo-cd-app
+          token: ${{ secrets.PAT }}
+          path: argo-cd-app
 
-          sed -i 's|image: ${{secrets.DOCKER_USERNAME}}/argo-cd-app:.*|image: ${{secrets.DOCKER_USERNAME}}/argo-cd-app:${{ github.sha }}|' manifest.yml
+      - name: Update image tag in manifest
+        run: |
+          cd argo-cd-app
+
+          sed -i "s|image: .*/argo-cd-app:.*|image: ${{ secrets.DOCKER_USERNAME }}/argo-cd-app:${{ github.sha }}|" manifest.yml
 
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
-          git add .
-          git commit -m "Update image tags to ${{ github.sha }}"
-          git push https://${PAT}@github.com/100xdevs-cohort-3/argo-deployment.git main
+
+          git add manifest.yml
+          git commit -m "Update image tag to ${{ github.sha }}" || echo "No changes"
+          git push origin main
