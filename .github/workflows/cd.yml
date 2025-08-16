@@ -45,6 +45,6 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
 
-          git add manifest.yml
+          git add ops/manifest.yml
           git commit -m "Update image tag to ${{ github.sha }}" || echo "No changes"
           git push origin main
