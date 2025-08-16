@@ -40,7 +40,7 @@ jobs:
         run: |
           cd argo-cd-app
 
-          sed -i "s|image: .*/argo-cd-app:.*|image: ${{ secrets.DOCKER_USERNAME }}/argo-cd-app:${{ github.sha }}|" manifest.yml
+          sed -i "s|image: .*/argo-cd-app:.*|image: ${{ secrets.DOCKER_USERNAME }}/argo-cd-app:${{ github.sha }}|" ops/manifest.yml
 
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"

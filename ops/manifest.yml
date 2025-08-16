@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argo-cd-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: argo-cd-app
+  template:
+    metadata:
+      labels:
+        app: argo-cd-app
+    spec:
+      containers:
+        - name: argo-cd-app
+          image: yogeshkumar011/argo-cd-app:cad424f623d61a7b49f7a4dc3209c3b5c01be382
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: argo-cd-app
+spec:
+  selector:
+    app: argo-cd-app
+  ports:
+    - port: 3000
+      targetPort: 3000
