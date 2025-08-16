@@ -23,6 +23,7 @@ kind: Service
 metadata:
   name: argo-cd-app
 spec:
+  type: ClusterIP
   selector:
     app: argo-cd-app
   ports:
