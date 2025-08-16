@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: argo-cd-app
-          image: yogeshkumar011/argo-cd-app:cad424f623d61a7b49f7a4dc3209c3b5c01be382
+          image: yogeshkumar011/argo-cd-app:fb987ddc57a1a3f08f6287273561c3edddb10cd5
           ports:
             - containerPort: 3000
 ---
