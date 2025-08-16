@@ -6,6 +6,7 @@ on:
 
 jobs:
   build-and-deploy:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -46,5 +47,5 @@ jobs:
           git config user.email "actions@github.com"
 
           git add ops/manifest.yml
-          git commit -m "Update image tag to ${{ github.sha }}" || echo "No changes"
+          git commit -m "chore: update image tag to ${{ github.sha }} [skip ci]" || echo "No changes"
           git push origin main
